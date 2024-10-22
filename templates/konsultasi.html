@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsultasi Penyakit Liver</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f9f9;
+            padding: 20px;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1a6e73;
+        }
+
+        .chat-box {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .chat-box::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chat-message {
+            text-align: left;
+            margin-bottom: 10px;
+            font-weight: normal;
+            color: #1a6e73;
+        }
+
+        .chat-message.user {
+            text-align: right;
+            color: #1a6e73;
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 10px;
+        }
+
+        .button-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .option-button, .home-button {
+            flex: 0 0 auto;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1a6e73;
+            color: white;
+            cursor: pointer;
+            min-width: 150px;
+            text-align: center;
+            text-decoration: none; /* Hilangkan garis bawah */
+            font-family: Arial, sans-serif; /* Pastikan font yang sama */
+            font-size: 14px; /* Pastikan ukuran font yang sama */
+            font-weight: normal; /* Pastikan berat font yang sama */
+            margin-bottom: 10px; /* Tambahkan jarak margin bawah */
+        }
+
+        .option-button:hover, .home-button:hover {
+            background-color: #145e5e;
+        }
+
+        textarea {
+            width: 97%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Konsultasi Penyakit Liver</h1>
+        <div class="chat-box" id="chat-box">
+            <p class="chat-message">Chatbot: Halo! Saya di sini untuk membantu Anda dengan pertanyaan tentang penyakit liver. Silakan pilih salah satu parameter di bawah ini:</p>
+        </div>
+        <div class="input-box">
+            <div class="button-container">
+                <button class="option-button" onclick="sendMessage('Total Bilirubin')">Total Bilirubin</button>
+                <button class="option-button" onclick="sendMessage('Direct Bilirubin')">Direct Bilirubin</button>
+                <button class="option-button" onclick="sendMessage('Alkaline Phosphotase')">Alkaline Phosphotase</button>
+                <button class="option-button" onclick="sendMessage('Alamine Aminotransferase')">Alamine Aminotransferase</button>
+                <button class="option-button" onclick="sendMessage('Aspartate Aminotransferase')">Aspartate Aminotransferase</button>
+                <button class="option-button" onclick="sendMessage('Total Proteins')">Total Proteins</button>
+                <button class="option-button" onclick="sendMessage('Albumin')">Albumin</button>
+                <button class="option-button" onclick="sendMessage('Albumin and Globulin Ratio')">Albumin and Globulin Ratio</button>
+                <button class="option-button" onclick="sendMessage('saran umum')">Saran Umum</button>
+            </div>
+            <textarea id="user-input" rows="3" placeholder="Atau ketik pertanyaan Anda di sini..."></textarea>
+            <button class="option-button" onclick="sendCustomMessage()">Kirim Pesan</button>
+        </div>
+        <!-- Tombol untuk konsultasi via WhatsApp dengan ukuran yang sama dan jarak margin -->
+        <a href="https://wa.me/6289634199624?text=Halo%20saya%20ingin%20konsultasi%20mengenai%20penyakit%20liver" class="option-button">Konsultasi via WhatsApp</a>
+        <button class="home-button" onclick="goHome()">Kembali ke Halaman Utama</button>
+    </div>
+
+    <script>
+        function sendMessage(parameter) {
+            const chatBox = document.getElementById('chat-box');
+
+            // Tampilkan pesan pengguna
+            chatBox.innerHTML += `<p class="chat-message user"><strong>Anda:</strong> ${parameter}</p>`;
+
+            // Simulasikan respons chatbot
+            let response = '';
+
+            switch (parameter) {
+                case 'Total Bilirubin':
+                    response = 'Total Bilirubin tinggi bisa menandakan gangguan hati. Sebaiknya perbanyak konsumsi makanan kaya antioksidan seperti buah dan sayur. Juga, batasi konsumsi alkohol dan lakukan pemeriksaan lebih lanjut.';
+                    break;
+                case 'Direct Bilirubin':
+                    response = 'Direct Bilirubin tinggi dapat menunjukkan masalah pada saluran empedu. Disarankan untuk menjaga pola makan rendah lemak dan minum banyak air putih untuk mendukung fungsi hati.';
+                    break;
+                case 'Alkaline Phosphotase':
+                    response = 'Alkaline Phosphotase tinggi bisa terkait dengan penyakit hati atau masalah tulang. Menghindari alkohol, konsumsi makanan sehat, dan melakukan aktivitas fisik secara teratur bisa membantu.';
+                    break;
+                case 'Alamine Aminotransferase':
+                    response = 'Alamine Aminotransferase (ALAT) yang tinggi bisa menandakan kerusakan hati. Dianjurkan untuk menghindari konsumsi obat-obatan tanpa resep dan menjaga pola hidup sehat.';
+                    break;
+                case 'Aspartate Aminotransferase':
+                    response = 'Aspartate Aminotransferase (ASAT) yang tinggi juga menandakan kerusakan hati. Sebaiknya hindari alkohol, makanan tinggi lemak, dan lakukan pemeriksaan hati lebih lanjut.';
+                    break;
+                case 'Total Proteins':
+                    response = 'Total protein rendah atau tinggi dapat menunjukkan masalah kesehatan. Konsumsi protein berkualitas seperti telur dan ikan, serta hidrasi yang cukup sangat penting.';
+                    break;
+                case 'Albumin':
+                    response = 'Albumin rendah dapat disebabkan oleh gangguan hati atau ginjal. Sebaiknya perbanyak minum air putih dan konsumsi makanan kaya protein. Jika albumin tinggi, periksa konsumsi garam dan air Anda.';
+                    break;
+                case 'Albumin and Globulin Ratio':
+                    response = 'Rasio albumin-globulin yang tidak normal dapat menunjukkan adanya penyakit hati. Menjaga pola makan sehat dan rutin memeriksakan kondisi kesehatan bisa membantu.';
+                    break;
+                case 'saran umum':
+                    response = 'Untuk menjaga kesehatan hati, hindari alkohol, makan makanan bergizi, dan lakukan olahraga teratur. Pemeriksaan kesehatan rutin juga sangat dianjurkan.';
+                    break;
+                default:
+                    response = 'Terima Kasih sudah menggunakan layanan ini, mengenai informasi lebih lanjut silahkan bisa menghubungi via whatsapp';
+                    break;
+            }
+
+            // Tampilkan respons chatbot
+            chatBox.innerHTML += `<p class="chat-message"><strong>Chatbot:</strong> ${response}</p>`;
+        }
+
+        function sendCustomMessage() {
+            const userInput = document.getElementById('user-input').value;
+
+            if (userInput.trim() === '') {
+                return;
+            }
+
+            sendMessage(userInput);
+            document.getElementById('user-input').value = '';
+        }
+
+        function goHome() {
+            window.location.href = "/"; // Kembali ke halaman utama
+        }
+
+    </script>
+</body>
+</html>
