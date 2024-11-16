@@ -17,22 +17,29 @@
             text-align: center;
             color: #007D80;
             font-weight: bold;
-            font-size: 28px;
+            font-size: 32px;
+            margin-bottom: 40px;
         }
 
-        .info-container {
-            max-width: 800px;
-            margin: auto;
-            background-color: #FFFFFF;
-            padding: 30px;
+        .category-container {
+            background-color: rgba(255, 255, 255, 0.85); /* Transparan */
+            padding: 20px;
+            margin-bottom: 20px;
             border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .category-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
         }
 
         h2 {
             color: #007D80;
-            margin-top: 25px;
-            font-size: 20px;
+            font-size: 24px;
+            margin-bottom: 10px;
+            transition: color 0.3s;
         }
 
         p {
@@ -44,7 +51,7 @@
         .source {
             font-size: 14px;
             color: #1A6E73;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .back-button {
@@ -59,10 +66,12 @@
             cursor: pointer;
             text-decoration: none;
             font-size: 18px;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
 
         .back-button:hover {
             background-color: #004C4E;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .source-links {
@@ -85,42 +94,52 @@
     <div class="info-container">
         <h1>Informasi Kategori Tes Liver</h1>
 
-        <h2>Total Bilirubin:</h2>
-        <p><strong>Bilirubin</strong> adalah zat yang terbentuk dari pemecahan sel darah merah. Nilai normal bilirubin total berkisar antara 0,1 hingga 1,2 mg/dL. Peningkatan kadar bilirubin total dapat menunjukkan gangguan hati atau adanya sumbatan pada saluran empedu.</p>
-        <p class="source"><em>Sumber: <a href="https://consensus.app/papers/review-bilirubin-determination-methods-emphasis-rawal/70d9f284101551d2a9e2981215404c45/?utm_source=chatgpt" target="_blank">Rawal et al., 2020.</a></em></p>
+        <div class="category-container">
+            <h2>Total Bilirubin:</h2>
+            <p><strong>Bilirubin</strong> adalah zat yang terbentuk dari pemecahan sel darah merah. Nilai normal bilirubin total berkisar antara 0,1 hingga 1,2 mg/dL. Peningkatan kadar bilirubin total dapat menunjukkan gangguan hati atau adanya sumbatan pada saluran empedu.</p>
+            <p class="source"><em>Sumber: <a href="https://consensus.app/papers/review-bilirubin-determination-methods-emphasis-rawal/70d9f284101551d2a9e2981215404c45/?utm_source=chatgpt" target="_blank">Rawal et al., 2020.</a></em></p>
+        </div>
 
-        <h2>Direct Bilirubin:</h2>
-        <p><strong>Direct bilirubin</strong> merupakan bagian dari bilirubin yang telah diolah oleh hati dan siap untuk diekskresikan melalui empedu. Nilai normalnya berkisar antara 0,0 hingga 0,3 mg/dL. Kadar yang lebih tinggi dapat menunjukkan masalah pada hati atau saluran empedu.</p>
-        <p class="source"><em>Sumber: <a href="https://consensus.app/papers/bilirubin-drainage-fluid-days-hepatectomy-useful-harimoto/3493551f97c05b6992639938a99d1825/?utm_source=chatgpt" target="_blank"> Harimoto et al ., 2021.</a></em></p>
+        <div class="category-container">
+            <h2>Direct Bilirubin:</h2>
+            <p><strong>Direct bilirubin</strong> merupakan bagian dari bilirubin yang telah diolah oleh hati dan siap untuk diekskresikan melalui empedu. Nilai normalnya berkisar antara 0,0 hingga 0,3 mg/dL. Kadar yang lebih tinggi dapat menunjukkan masalah pada hati atau saluran empedu.</p>
+            <p class="source"><em>Sumber: <a href="https://consensus.app/papers/bilirubin-drainage-fluid-days-hepatectomy-useful-harimoto/3493551f97c05b6992639938a99d1825/?utm_source=chatgpt" target="_blank">Harimoto et al., 2021.</a></em></p>
+        </div>
 
-        <h2>Alkaline Phosphatase:</h2>
-        <p><strong>Alkaline phosphatase (ALP)</strong> adalah enzim yang ditemukan di hati dan tulang. Kadar normalnya antara 44 hingga 147 U/L. Peningkatan kadar enzim ini dapat menunjukkan masalah pada hati atau tulang.</p>
-        <p class="source"><em>Sumber: <a href="https://consensus.app/papers/measurement-usefulness-bilirubin-liver-disease-ruiz/d00c417dde9a5e9395493b0c2143298a/?utm_source=chatgpt" target="_blank">Guerra Ruiz et al ., 2021.</a></em></p>
+        <div class="category-container">
+            <h2>Alkaline Phosphatase:</h2>
+            <p><strong>Alkaline phosphatase (ALP)</strong> adalah enzim yang ditemukan di hati dan tulang. Kadar normalnya antara 44 hingga 147 U/L. Peningkatan kadar enzim ini dapat menunjukkan masalah pada hati atau tulang.</p>
+            <p class="source"><em>Sumber: <a href="https://consensus.app/papers/measurement-usefulness-bilirubin-liver-disease-ruiz/d00c417dde9a5e9395493b0c2143298a/?utm_source=chatgpt" target="_blank">Guerra Ruiz et al., 2021.</a></em></p>
+        </div>
 
-        <h2>Alamine Aminotransferase (ALT):</h2>
-        <p><strong>ALT</strong> adalah enzim yang ditemukan di dalam sel hati. Kadar normal ALT adalah antara 7 hingga 56 U/L. Peningkatan kadar ALT menandakan adanya kerusakan pada sel-sel hati.</p>
-        <p class="source"><em>Sumber: <a href="https://consensus.app/papers/measurement-usefulness-bilirubin-liver-disease-ruiz/d00c417dde9a5e9395493b0c2143298a/?utm_source=chatgpt" target="_blank">Guerra Ruiz et al ., 2021</a></em></p>
+        <div class="category-container">
+            <h2>Alamine Aminotransferase (ALT):</h2>
+            <p><strong>ALT</strong> adalah enzim yang ditemukan di dalam sel hati. Kadar normal ALT adalah antara 7 hingga 56 U/L. Peningkatan kadar ALT menandakan adanya kerusakan pada sel-sel hati.</p>
+            <p class="source"><em>Sumber: <a href="https://consensus.app/papers/measurement-usefulness-bilirubin-liver-disease-ruiz/d00c417dde9a5e9395493b0c2143298a/?utm_source=chatgpt" target="_blank">Guerra Ruiz et al., 2021</a></em></p>
+        </div>
 
-        <h2>Aspartate Aminotransferase (AST):</h2>
-        <p><strong>AST</strong> adalah enzim yang juga ditemukan di hati dan jaringan tubuh lain seperti jantung dan otot. Nilai normal AST adalah antara 10 hingga 40 U/L. Peningkatan kadar AST menunjukkan adanya kerusakan pada hati atau jaringan lain.</p>
-        <p class="source"><em>Sumber: <a href="https://consensus.app/papers/utility-liver-function-tests-acute-cholecystitis-zgheib/44a5a1385f475c81b45a3d6db1700796/?utm_source=chatgpt" target="_blank">Zgheib et al ., 2019</a></em></p>
+        <div class="category-container">
+            <h2>Aspartate Aminotransferase (AST):</h2>
+            <p><strong>AST</strong> adalah enzim yang juga ditemukan di hati dan jaringan tubuh lain seperti jantung dan otot. Nilai normal AST adalah antara 10 hingga 40 U/L. Peningkatan kadar AST menunjukkan adanya kerusakan pada hati atau jaringan lain.</p>
+            <p class="source"><em>Sumber: <a href="https://consensus.app/papers/utility-liver-function-tests-acute-cholecystitis-zgheib/44a5a1385f475c81b45a3d6db1700796/?utm_source=chatgpt" target="_blank">Zgheib et al., 2019.</a></em></p>
+        </div>
 
-        <h2>Total Protein:</h2>
-        <p><strong>Total protein</strong> mengukur jumlah semua protein dalam darah, termasuk albumin dan globulin. Nilai normalnya adalah 6,0 hingga 8,3 g/dL. Kadar yang meningkat bisa terkait dengan peradangan kronis atau kelainan autoimun, sementara kadar rendah bisa menunjukkan masalah nutrisi atau fungsi hati.</p>
-        <p class="source"><em>Sumber: <a href="https://consensus.app/papers/fluorescencebased-analysis-total-bilirubin-blood-urine-tai/896dde1e12dc588ab20f16d16972e233/?utm_source=chatgpt" target="_blank">Tai et al ., 2021</a></em></p>
+        <div class="category-container">
+            <h2>Total Protein:</h2>
+            <p><strong>Total protein</strong> mengukur jumlah semua protein dalam darah, termasuk albumin dan globulin. Nilai normalnya adalah 6,0 hingga 8,3 g/dL. Kadar yang meningkat bisa terkait dengan peradangan kronis atau kelainan autoimun, sementara kadar rendah bisa menunjukkan masalah nutrisi atau fungsi hati.</p>
+            <p class="source"><em>Sumber: <a href="https://consensus.app/papers/fluorescencebased-analysis-total-bilirubin-blood-urine-tai/896dde1e12dc588ab20f16d16972e233/?utm_source=chatgpt" target="_blank">Tai et al., 2021.</a></em></p>
+        </div>
 
-        <h2>Albumin:</h2>
-        <p><strong>Albumin</strong> adalah protein utama yang diproduksi oleh hati, dan penting untuk menjaga tekanan osmotik darah serta transportasi berbagai zat. Nilai normal albumin berkisar antara 3,5 hingga 5,0 g/dL. Kadar yang rendah dapat menunjukkan gangguan fungsi hati atau ginjal.</p>
-        <p class="source"><em>Sumber: <a href="https://consensus.app/papers/measurement-usefulness-bilirubin-liver-disease-ruiz/d00c417dde9a5e9395493b0c2143298a/?utm_source=chatgpt" target="_blank">Guerra Ruiz et al ., 2021</a></em></p>
+        <div class="category-container">
+            <h2>Albumin:</h2>
+            <p><strong>Albumin</strong> adalah protein utama yang diproduksi oleh hati, dan penting untuk menjaga tekanan osmotik darah serta transportasi berbagai zat. Nilai normal albumin berkisar antara 3,5 hingga 5,0 g/dL. Kadar yang rendah dapat menunjukkan gangguan fungsi hati atau ginjal.</p>
+            <p class="source"><em>Sumber: <a href="https://consensus.app/papers/measurement-usefulness-bilirubin-liver-disease-ruiz/d00c417dde9a5e9395493b0c2143298a/?utm_source=chatgpt" target="_blank">Guerra Ruiz et al., 2021.</a></em></p>
+        </div>
 
-        <h2>Rasio Albumin/Globulin (A/G Ratio):</h2>
-        <p><strong>Rasio Albumin/Globulin (A/G Ratio)</strong> membandingkan kadar albumin dengan globulin, protein yang berperan dalam sistem kekebalan tubuh. Rasio normal adalah antara 1,0 hingga 2,1. Penurunan rasio ini dapat menunjukkan masalah hati atau ginjal.</p>
-        <p class="source"><em>Sumber: <a href="https://consensus.app/papers/fluorescencebased-analysis-total-bilirubin-blood-urine-tai/896dde1e12dc588ab20f16d16972e233/?utm_source=chatgpt" target="_blank">Tai et al ., 2021</a></em></p>
-
-        <div class="source-links">
-            <p>
-                Sumber lainnya : <a href="https://www.amjgastro.com/" target="_blank">The American Journal of Gastroenterology</a>
-            </p>
+        <div class="category-container">
+            <h2>Rasio Albumin/Globulin (A/G Ratio):</h2>
+            <p><strong>Rasio Albumin/Globulin (A/G Ratio)</strong> membandingkan kadar albumin dengan globulin, protein yang berperan dalam sistem kekebalan tubuh. Rasio normal adalah antara 1,0 hingga 2,1. Penurunan rasio ini dapat menunjukkan masalah hati atau ginjal.</p>
+            <p class="source"><em>Sumber: <a href="https://consensus.app/papers/fluorescencebased-analysis-total-bilirubin-blood-urine-tai/896dde1e12dc588ab20f16d16972e233/?utm_source=chatgpt" target="_blank">Tai et al., 2021.</a></em></p>
         </div>
 
         <!-- Back Button -->
