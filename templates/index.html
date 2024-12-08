@@ -250,8 +250,8 @@
         <h1>Liver Insight</h1>
         <div class="nav">
             <a href="#">Beranda</a>
-            <a href="#">Profil</a>
-            <a href="#">Layanan</a>
+            <a href="profil.html">Profil</a>
+            <a href="#services">Layanan</a>
             <a href="#">Kontak</a>
         </div>
     </header>
@@ -274,28 +274,28 @@
         <span class="dot" onclick="currentSlide(5)"></span>
     </div>
 
-    <section class="services">
+    <section class="services" id="services">
         <h2>Silahkan Pilih Layanan Dari Kami</h2>
         <div class="service-container">
             <div class="service-card" onclick="openModal('prediksiModal')">
                 <i class="fas fa-stethoscope"></i>
                 <h3>Prediksi Penyakit Liver</h3>
-                <p>Gunakan alat prediksi kami untuk mengetahui apakah anda terkena penyakit liver atau tidak</p>
+                <p>Gunakan alat prediksi penyakit liver kami dengan akurat</p>
             </div>
             <div class="service-card" onclick="openModal('informasiModal')">
                 <i class="fas fa-info-circle"></i>
                 <h3>Informasi Liver</h3>
-                <p>Dapatkan informasi seputar kategori yang diujikan dalam prediksi penyakit liver</p>
+                <p>Dapatkan informasi seputar kategori yang diujikan dalam prediksi liver</p>
             </div>
             <div class="service-card" onclick="openModal('chatbotModal')">
                 <i class="fas fa-robot"></i>
                 <h3>Konsultasi Chatbot</h3>
-                <p>Konsultasikan kesehatan liver Anda dengan menggunakan chatbot serta dapatkan informasi lebih lanjut</p>
+                <p>Konsultasikan kesehatan liver anda dengan menggunakan chatbot</p>
             </div>
             <div class="service-card" onclick="openModal('galeriModal')">
                 <i class="fas fa-heartbeat"></i>
                 <h3>Galeri Liver</h3>
-                <p>Mengetahui gambar seputar liver seperti liver sehat dan tidak atau anatomi hati</p>
+                <p>Mengetahui gambar seputar penyakit pada liver dan anatomi hati</p>
             </div>
             <!-- New Service Card for Fibrosis Prediction -->
             <div class="service-card" onclick="openModal('fibrosisModal')">
@@ -347,7 +347,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('galeriModal')">&times;</span>
             <h2>Galeri Liver</h2>
-            <p>Lihat berbagai gambar liver, termasuk anatomi dan kondisi liver sehat maupun tidak sehat.</p>
+            <p>Lihat berbagai gambar dan informasi terkait anatomi hati serta penyakit liver.</p>
             <a href="/gambar" style="color: #007D80;">Lihat Galeri</a>
         </div>
     </div>

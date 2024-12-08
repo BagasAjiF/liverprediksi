@@ -8,53 +8,96 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            color: #2C3E50;
             background-color: #e3f9f9;
             text-align: center;
-            padding: 40px;
+            padding: 20px;
+            background: url('static/61808.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         h1 {
             color: #007D80;
         }
-        input[type="file"] {
-            margin: 20px 0;
+        .info-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: #888;
+            cursor: pointer;
+        }
+        .info-icon:hover {
+            color: #555;
+        }
+        .form-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="file"], select {
             padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select {
+            width: 150px;
+        }
+        .image-preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        img {
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
         }
         button {
-            background-color: #007D80;
-            color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 16px;
         }
-        button:hover {
+        .btn-predict {
+            background-color: #007D80;
+            color: white;
+        }
+        .btn-predict:hover {
             background-color: #005f60;
         }
-        .image-preview {
+        .btn-reset {
+            background-color: #888;
+            color: white;
+        }
+        .btn-reset:hover {
+            background-color: #555;
+        }
+        .result {
             margin-top: 20px;
-            max-width: 100%;
+            padding: 15px;
+            background-color: #dff6f5;
             border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .prediction {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #2C3E50;
-        }
-        .file-name {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 10px;
+            text-align: center;
+            color: #333;
         }
         .back-button {
             display: inline-block;
@@ -70,38 +113,173 @@
         .back-button:hover {
             background-color: #005f60;
         }
+        /* Popup styles */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 80%;
+            text-align: left;
+            overflow-y: auto;
+            max-height: 90%;
+            position: relative;
+        }
+        .popup h2 {
+            color: #007D80;
+            margin-top: 0;
+        }
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .image-item {
+            width: calc(33.33% - 10px);
+            text-align: center;
+        }
+        .image-item img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 5px;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #888;
+            cursor: pointer;
+        }
+        .close-button:hover {
+            color: #555;
+        }
     </style>
     <script>
         function previewImage(event) {
             const reader = new FileReader();
-            reader.onload = function() {
-                const output = document.getElementById('imagePreview');
-                const fileNameDisplay = document.getElementById('fileName');
+            reader.onload = function () {
+                const output = document.getElementById('image-preview');
                 output.src = reader.result;
                 output.style.display = 'block';
-                fileNameDisplay.textContent = event.target.files[0].name;
-            }
+
+                // Simpan data ke localStorage untuk menjaga preview setelah prediksi
+                localStorage.setItem('previewImage', reader.result);
+            };
             reader.readAsDataURL(event.target.files[0]);
         }
+
+        function resetForm() {
+            document.getElementById('prediction-form').reset();
+            document.getElementById('image-preview').style.display = 'none';
+            document.querySelector('.result').innerHTML = '';
+            localStorage.clear();
+        }
+
+        function openPopup() {
+            document.querySelector('.popup-container').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.querySelector('.popup-container').style.display = 'none';
+        }
+
+        // Menjaga preview gambar setelah reload atau submit
+        window.onload = function () {
+            const previewImage = localStorage.getItem('previewImage');
+            if (previewImage) {
+                const output = document.getElementById('image-preview');
+                output.src = previewImage;
+                output.style.display = 'block';
+            }
+        };
     </script>
 </head>
 <body>
     <div class="container">
+        <i class="fas fa-info-circle info-icon" onclick="openPopup()"></i>
         <h1>Prediksi Fibrosis Liver</h1>
-        <form action="/fibrosis_predict" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required onchange="previewImage(event)">
-            <img id="imagePreview" class="image-preview" style="display: none;" alt="Image Preview">
-            <div id="fileName" class="file-name"></div>
-            <button type="submit">Prediksi</button>
+        <form id="prediction-form" action="/fibrosis_predict" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" id="file" name="file" accept="image/*" onchange="previewImage(event)" required>
+                <select name="model" required>
+                    <option value="LSTM" {% if selected_model == 'LSTM' %}selected{% endif %}>LSTM</option>
+                    <option value="CNN" {% if selected_model == 'CNN' %}selected{% endif %}>CNN</option>
+                    <option value="GAN" {% if selected_model == 'GAN' %}selected{% endif %}>GAN</option>
+                </select>
+            </div>
+
+            <div class="image-preview-container">
+                <img id="image-preview" style="display: none;" alt="Image Preview">
+            </div>
+
+            <div class="controls">
+                <button type="submit" class="btn-predict">Prediksi</button>
+                <button type="button" class="btn-reset" onclick="resetForm()">Reset</button>
+            </div>
         </form>
-        {% if prediction %}
-        <div class="prediction">
-            <strong>Hasil Prediksi:</strong> {{ prediction }}
+
+        <div class="result">
+            {% if prediction %}
+                <h3>Hasil Prediksi</h3>
+                <p><strong>Model:</strong> {{ selected_model }}</p>
+                <p><strong>Prediksi:</strong> {{ prediction }}</p>
+            {% endif %}
         </div>
-        {% endif %}
     </div>
 
-    <!-- Back Button -->
+    <!-- Back button di luar container -->
     <a href="/" class="back-button">Kembali ke Halaman Utama</a>
+
+    <!-- Popup Modal -->
+    <div class="popup-container">
+        <div class="popup">
+            <button class="close-button" onclick="closePopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="image-grid">
+                <div class="image-item">
+                    <h2>F0 - No Fibrosis</h2>
+                    <img src="static/a107.jpg" alt="F0 - No Fibrosis">
+                    <p>Jaringan hati yang sehat tanpa tanda-tanda fibrosis.</p>
+                </div>
+                <div class="image-item">
+                    <h2>F1 - Portal Fibrosis</h2>
+                    <img src="static/f1.jpg" alt="F1 - Portal Fibrosis">
+                    <p>Fibrosis di sekitar area portal hati, tahap awal jaringan parut.</p>
+                </div>
+                <div class="image-item">
+                    <h2>F4 - Cirrhosis</h2>
+                    <img src="static/f4.jpg" alt="F4 - Cirrhosis">
+                    <p>Fibrosis lanjut yang menyebabkan sirosis permanen.</p>
+                </div>
+                <div class="image-item">
+                    <h2>F3 - Septal Fibrosis</h2>
+                    <img src="static/f3.jpg" alt="F3 - Septal Fibrosis">
+                    <p>Fibrosis yang membentuk pita di seluruh jaringan hati.</p>
+                </div>
+                <div class="image-item">
+                    <h2>F2 - Periportal Fibrosis</h2>
+                    <img src="static/f2.png" alt="F2 - Periportal Fibrosis">
+                    <p>Fibrosis di tepi area portal hati, lebih meluas dibandingkan F1.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

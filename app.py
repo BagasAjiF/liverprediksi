@@ -3,6 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import pickle
+import base64
 from flask import Flask, render_template, request, jsonify
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
@@ -16,12 +17,17 @@ app = Flask(__name__)
 with open("model/best_rf_model.pkl", 'rb') as file:
     liver_model = pickle.load(file)
 
-# Load Liver Fibrosis Prediction Model
-MODEL_PATH = "model/lstm_model (1).h5"
-fibrosis_model = load_model(MODEL_PATH)
+# Load Liver Fibrosis Prediction Models
+MODEL_PATH_LSTM = "model/lstm_model (1).h5"
+MODEL_PATH_CNN = "model/cnn_model.h5"  # Add your CNN model path
+MODEL_PATH_GAN = "model/classification_fnn_model.h5"  # Add your GAN model path
+
+fibrosis_model_lstm = load_model(MODEL_PATH_LSTM)
+fibrosis_model_cnn = load_model(MODEL_PATH_CNN)
+fibrosis_model_gan = load_model(MODEL_PATH_GAN)
 
 # Liver Fibrosis Class Labels
-CLASSES = ['F0', 'F1', 'F2', 'F3', 'F4']
+CLASSES = ['F0', 'F3', 'F4', 'F2', 'F1']
 
 # Home Page Route
 @app.route('/')
@@ -98,13 +104,36 @@ def fibrosis_predict():
             image = img_to_array(image)
             image = np.expand_dims(image, axis=0) / 255.0  # Normalize
 
+            # Select model
+            selected_model = request.form.get('model')  # Model selection input
+            if selected_model == 'CNN':
+                model = fibrosis_model_cnn
+            elif selected_model == 'GAN':
+                # GAN typically takes a noise vector as input, not an image, but here we are assuming it is adapted for classification
+                image = image.reshape(1, -1)  # Flatten the image to match expected input shape
+                model = fibrosis_model_gan
+            elif selected_model == 'LSTM':
+                model = fibrosis_model_lstm
+            else:
+                return "Model not selected or invalid"
+
             # Make prediction
-            prediction = fibrosis_model.predict(image)
+            prediction = model.predict(image)
+            confidence = np.max(prediction) * 100  # Confidence percentage
             predicted_class = CLASSES[np.argmax(prediction)]
 
-            return render_template('fibrosis_predict.html', prediction=predicted_class)
+            # Encode the image in base64 for displaying on the webpage
+            with open(filepath, "rb") as img_file:
+                encoded_img = base64.b64encode(img_file.read()).decode('utf-8')
 
-    return render_template('fibrosis_predict.html')
+            return render_template(
+                'fibrosis_predict.html',
+                prediction=f"{predicted_class} ({confidence:.2f}% confidence)",
+                selected_model=selected_model,
+                image_data=encoded_img
+            )
+
+    return render_template('fibrosis_predict.html', prediction=None, selected_model=None, image_data=None)
 
 # Additional Routes
 @app.route('/info')
@@ -118,6 +147,10 @@ def konsultasi():
 @app.route('/gambar')
 def gambar():
     return render_template('gambar.html')
+
+@app.route('/profil.html')
+def profile():
+    return render_template('profil.html')
 
 if __name__ == "__main__":
     # Create uploads folder if it doesn't exist
