@@ -1,24 +1,38 @@
-# Flask app definition
-from flask import Flask, render_template, request, jsonify
+# app.py
+import os
+import numpy as np
 import pandas as pd
 import pickle
+from flask import Flask, render_template, request, jsonify
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.image import img_to_array
+from werkzeug.utils import secure_filename
+from PIL import Image
 
-# Load model
-with open("model/best_rf_model.pkl", 'rb') as file:
-    model = pickle.load(file)
-
+# Initialize Flask App
 app = Flask(__name__)
 
-# Home page route
+# Load Liver Disease Prediction Model
+with open("model/best_rf_model.pkl", 'rb') as file:
+    liver_model = pickle.load(file)
+
+# Load Liver Fibrosis Prediction Model
+MODEL_PATH = "model/lstm_model (1).h5"
+fibrosis_model = load_model(MODEL_PATH)
+
+# Liver Fibrosis Class Labels
+CLASSES = ['F0', 'F1', 'F2', 'F3', 'F4']
+
+# Home Page Route
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Prediction route
+# Liver Disease Prediction Route
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
-        # Handle form inputs and return the prediction result
+        # Handle form inputs for liver disease prediction
         age = int(request.form['age'])
         gender = 1 if request.form['gender'] == 'Male' else 0
 
@@ -41,7 +55,7 @@ def predict():
         albumin = (3.5 + 5.0) / 2 if albumin_range == "3.5-5.0" else (5.1 + 6.0) / 2 if albumin_range == "5.1-6.0" else 7.0
         albumin_globulin_ratio = (1.0 + 2.1) / 2 if albumin_globulin_ratio_range == "1.0-2.1" else 2.5
 
-        # Prepare data for prediction
+        # Prepare data for liver disease prediction
         input_data = pd.DataFrame({
             'Age': [age],
             'Gender': [gender],
@@ -56,14 +70,43 @@ def predict():
         })
 
         # Make prediction
-        prediction_proba = model.predict_proba(input_data)
+        prediction_proba = liver_model.predict_proba(input_data)
         result = "Pasien Terkena Penyakit Liver" if prediction_proba[0][1] >= 0.7 else "Pasien Tidak Terkena Penyakit Liver"
 
         return jsonify(prediction=result)
 
     return render_template('predict.html')  # Form for prediction
 
-# Other routes...
+# Liver Fibrosis Prediction Route
+@app.route('/fibrosis_predict', methods=['GET', 'POST'])
+def fibrosis_predict():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return "No file part"
+        file = request.files['file']
+        if file.filename == '':
+            return "No selected file"
+        if file:
+            # Save the uploaded file
+            filename = secure_filename(file.filename)
+            filepath = os.path.join('uploads', filename)
+            file.save(filepath)
+
+            # Preprocess the image
+            image = Image.open(filepath).convert('L')  # Convert to grayscale
+            image = image.resize((64, 64))
+            image = img_to_array(image)
+            image = np.expand_dims(image, axis=0) / 255.0  # Normalize
+
+            # Make prediction
+            prediction = fibrosis_model.predict(image)
+            predicted_class = CLASSES[np.argmax(prediction)]
+
+            return render_template('fibrosis_predict.html', prediction=predicted_class)
+
+    return render_template('fibrosis_predict.html')
+
+# Additional Routes
 @app.route('/info')
 def info():
     return render_template('info.html')
@@ -76,5 +119,8 @@ def konsultasi():
 def gambar():
     return render_template('gambar.html')
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    # Create uploads folder if it doesn't exist
+    if not os.path.exists('uploads'):
+        os.makedirs('uploads')
     app.run(debug=True)

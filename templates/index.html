@@ -67,17 +67,10 @@
             padding: 0 20px;
         }
 
-        /* Animasi kedap-kedip untuk teks */
         @keyframes blink {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         .services h2 {
@@ -87,14 +80,12 @@
             animation: blink 2s infinite;
         }
 
-        /* Styling for banner carousel */
         .carousel {
             width: 100%;
             max-width: 100%;
             margin: 0 auto;
             position: relative;
             overflow: hidden;
-            border-radius: 0px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -111,7 +102,6 @@
             display: block;
         }
 
-        /* Dot indicators */
         .dots {
             text-align: center;
             margin-top: 15px;
@@ -131,7 +121,6 @@
             background-color: #007D80;
         }
 
-        /* Next and Previous Buttons */
         .prev, .next {
             cursor: pointer;
             position: absolute;
@@ -146,15 +135,8 @@
             user-select: none;
         }
 
-        .next {
-            right: 10px;
-            border-radius: 3px 0 0 3px;
-        }
-
-        .prev {
-            left: 10px;
-            border-radius: 3px 0 0 3px;
-        }
+        .next { right: 10px; border-radius: 3px 0 0 3px; }
+        .prev { left: 10px; border-radius: 3px 0 0 3px; }
 
         .prev:hover, .next:hover {
             background-color: rgba(0, 0, 0, 0.8);
@@ -221,15 +203,10 @@
         }
 
         @keyframes scrollText {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
-        /* Modal styling */
         .modal {
             display: none;
             position: fixed;
@@ -260,46 +237,15 @@
             font-weight: bold;
         }
 
-        .close:hover,
-        .close:focus {
+        .close:hover, .close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
-        }
-
-        /* Animations for modal */
-        .modal-content {
-            animation: zoomIn 0.3s ease-out;
-        }
-
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .modal-content p {
-            font-size: 16px;
-            color: #2C3E50;
-            text-align: justify;
-        }
-
-        @media (max-width: 768px) {
-            .carousel img {
-                height: 250px;
-            }
         }
     </style>
 </head>
 
 <body>
-
     <header>
         <h1>Liver Insight</h1>
         <div class="nav">
@@ -310,20 +256,16 @@
         </div>
     </header>
 
-    <!-- Carousel Section -->
     <div class="carousel">
         <img src="static/Desain tanpa judul (18).png" class="active" alt="Image 1">
         <img src="static/Desain tanpa judul (19).png" alt="Image 2">
         <img src="static/Desain tanpa judul (20).png" alt="Image 3">
         <img src="static/Desain tanpa judul (21).png" alt="Image 4">
         <img src="static/Desain tanpa judul (22).png" alt="Image 5">
-
-        <!-- Next and Previous buttons -->
         <a class="prev" onclick="showPrevImage()">&#10094;</a>
         <a class="next" onclick="showNextImage()">&#10095;</a>
     </div>
 
-    <!-- Dots for indicating current image -->
     <div class="dots">
         <span class="dot active" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
@@ -332,7 +274,6 @@
         <span class="dot" onclick="currentSlide(5)"></span>
     </div>
 
-    <!-- Layanan Section -->
     <section class="services">
         <h2>Silahkan Pilih Layanan Dari Kami</h2>
         <div class="service-container">
@@ -341,23 +282,26 @@
                 <h3>Prediksi Penyakit Liver</h3>
                 <p>Gunakan alat prediksi kami untuk mengetahui apakah anda terkena penyakit liver atau tidak</p>
             </div>
-
             <div class="service-card" onclick="openModal('informasiModal')">
                 <i class="fas fa-info-circle"></i>
                 <h3>Informasi Liver</h3>
                 <p>Dapatkan informasi seputar kategori yang diujikan dalam prediksi penyakit liver</p>
             </div>
-
             <div class="service-card" onclick="openModal('chatbotModal')">
                 <i class="fas fa-robot"></i>
                 <h3>Konsultasi Chatbot</h3>
                 <p>Konsultasikan kesehatan liver Anda dengan menggunakan chatbot serta dapatkan informasi lebih lanjut</p>
             </div>
-
             <div class="service-card" onclick="openModal('galeriModal')">
                 <i class="fas fa-heartbeat"></i>
                 <h3>Galeri Liver</h3>
                 <p>Mengetahui gambar seputar liver seperti liver sehat dan tidak atau anatomi hati</p>
+            </div>
+            <!-- New Service Card for Fibrosis Prediction -->
+            <div class="service-card" onclick="openModal('fibrosisModal')">
+                <i class="fas fa-vial"></i>
+                <h3>Prediksi Fibrosis Liver</h3>
+                <p>Gunakan alat ini untuk memprediksi tingkat fibrosis liver Anda secara akurat.</p>
             </div>
         </div>
     </section>
@@ -408,6 +352,16 @@
         </div>
     </div>
 
+    <!-- New Modal for Fibrosis Prediction -->
+    <div id="fibrosisModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('fibrosisModal')">&times;</span>
+            <h2>Prediksi Fibrosis Liver</h2>
+            <p>Gunakan alat ini untuk memprediksi tingkat fibrosis liver Anda.</p>
+            <a href="/fibrosis_predict" style="color: #007D80;">Prediksi Sekarang</a>
+        </div>
+    </div>
+
     <script>
         let index = 0;
         const images = document.querySelectorAll('.carousel img');
@@ -438,7 +392,6 @@
             dots[index].classList.add('active');
         }
 
-        // Set automatic slideshow every 3 seconds
         let interval = setInterval(showNextImage, 3000);
 
         document.querySelector('.next').addEventListener('click', function() {
@@ -453,7 +406,6 @@
             interval = setInterval(showNextImage, 3000);
         });
 
-        // Modal handling
         function openModal(modalId) {
             document.getElementById(modalId).style.display = "block";
         }
@@ -462,7 +414,6 @@
             document.getElementById(modalId).style.display = "none";
         }
 
-        // Close the modal if the user clicks outside of the modal content
         window.onclick = function(event) {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {

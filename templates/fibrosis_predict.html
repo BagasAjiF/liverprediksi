@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Fibrosis Liver</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #2C3E50;
+            background-color: #e3f9f9;
+            text-align: center;
+            padding: 40px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007D80;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+        }
+        button {
+            background-color: #007D80;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #005f60;
+        }
+        .image-preview {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .prediction {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #2C3E50;
+        }
+        .file-name {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007D80;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #005f60;
+        }
+    </style>
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('imagePreview');
+                const fileNameDisplay = document.getElementById('fileName');
+                output.src = reader.result;
+                output.style.display = 'block';
+                fileNameDisplay.textContent = event.target.files[0].name;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediksi Fibrosis Liver</h1>
+        <form action="/fibrosis_predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required onchange="previewImage(event)">
+            <img id="imagePreview" class="image-preview" style="display: none;" alt="Image Preview">
+            <div id="fileName" class="file-name"></div>
+            <button type="submit">Prediksi</button>
+        </form>
+        {% if prediction %}
+        <div class="prediction">
+            <strong>Hasil Prediksi:</strong> {{ prediction }}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Back Button -->
+    <a href="/" class="back-button">Kembali ke Halaman Utama</a>
+</body>
+</html>
