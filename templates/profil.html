@@ -53,7 +53,7 @@
             flex-direction: column;
             align-items: center;
             padding: 50px 20px;
-            background-color: rgba(255, 255, 255, 0.5); /* Transparansi 50% */
+            background-color: rgba(255, 255, 255, 0.5);
             margin: 50px auto;
             max-width: 800px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -89,39 +89,31 @@
             text-align: justify;
         }
 
-        .profile-container .projects-title {
-            font-size: 16px;
-            color: #34495E;
-            text-align: left;
+        .profile-container form {
             width: 100%;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            max-width: 600px;
+            margin-top: 30px;
         }
 
-        .linkedin-container {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .linkedin-container a {
-            text-decoration: none;
-            color: #007D80;
+        .profile-container form input,
+        .profile-container form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
             font-size: 16px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
-        .linkedin-container a i {
-            font-size: 20px;
+        .profile-container form button {
+            background-color: #007D80;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
 
-        .linkedin-container a:hover {
-            text-decoration: underline;
+        .profile-container form button:hover {
+            background-color: #005f5f;
         }
 
         footer {
@@ -142,39 +134,26 @@
         <div class="nav">
             <a href="/">Beranda</a>
             <a href="profil.html">Profil</a>
-            <a href="#">Layanan</a>
-            <a href="#">Kontak</a>
+            <a href="#services">Layanan</a>
+            <a href="/kontak">Kontak</a>
+            <a href="/logout">Logout</a>
         </div>
     </header>
 
     <div class="profile-container">
-        <img src="static\oo.png" alt="Profil Foto">
-        <h2>BAGAS AJI FEBRYANTO</h2>
-        <h3>Data Analyst & Data Scientist</h3>
-        <p>
-            A student at UNIVERSITAS AMIKOM PURWOKERTO majoring in Informatics, with experience in an independent study
-            for Data Analyst at Karier.mu MSIB Batch 6. Skilled in using Microsoft Office, Google Sheets, Google
-            Colaboratory, Visual Studio Code, and Tableau. Proficient in SQL and Python programming languages. Gained
-            experience during an internship at PT AZKI INOVASI NUSANTARA as a Data Scientist.
-        </p>
-        <!-- <p class="projects-title">Developed projects including:</p>
-        <p>
-            1. Sentiment Analysis on the Implementation of Electric Vehicle Incentives in Indonesia on YouTube
-            Platform Using SVM Method, contributed to data collection, preprocessing, splitting,
-            modeling, and evaluation using Google Colaboratory.
-        </p>
-        <p>
-            2. Comparison of Random Forest, XGBoost, and Logistic Regression Algorithms, applied
-            Hyperparameter Tuning with the GridSearch method for liver disease prediction.
-        </p> -->
-
-        <!-- LinkedIn Section -->
-        <div class="linkedin-container">
-            <a href="https://www.linkedin.com/in/bagas-aji-f-831852302/" target="_blank">
-                <i class="fab fa-linkedin"></i> LinkedIn Profile
-            </a>
-        </div>
+        <img src="static/oo.png" alt="Profil Foto">
+        <h2>{{ user.username }}</h2>
+        <p>Email: {{ user.email }}</p>
+    
+        <form method="POST" action="{{ url_for('update_profile') }}">
+            <input type="text" name="username" value="{{ user.username }}" required placeholder="Username">
+            <input type="email" name="email" value="{{ user.email }}" disabled placeholder="Email">
+            <input type="password" name="new_password" placeholder="Password Baru">
+            <input type="password" name="confirm_password" placeholder="Konfirmasi Password Baru">
+            <button type="submit">Update Profil</button>
+        </form>
     </div>
+    
 </body>
 
 </html>

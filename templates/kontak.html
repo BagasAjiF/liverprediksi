@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak Kami</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: #e3f9f9;
+            color: #2C3E50;
+            /* background: url('static/61808.jpg') no-repeat center center fixed;
+            background-size: cover; */
+        }
+
+        header {
+            background-color: #007D80;
+            padding: 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid #1a6e73;
+            box-sizing: border-box;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin: 0;
+        }
+
+        header .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        header .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .left-section {
+            flex: 1;
+        }
+
+        .left-section h2 {
+            font-size: 28px;
+            color: #007D80;
+            margin-bottom: 10px;
+        }
+
+        .left-section p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .social-media {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .social-media a {
+            text-decoration: none;
+            font-size: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-media a:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .social-media i {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+
+        .social-media .facebook i {
+            color: #3b5998;
+        }
+
+        .social-media .instagram i {
+            color: #E1306C;
+        }
+
+        .social-media .linkedin i {
+            color: #0077b5;
+        }
+
+        .social-media .twitter i {
+            color: #1DA1F2;
+        }
+
+        .social-media .whatsapp i {
+            color: #25D366;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            text-indent: 20px;
+        }
+
+        .right-section {
+            flex: 1;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #2C3E50;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        button {
+            background: #007D80;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background: #005f5f;
+        }
+
+        .map {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Liver Insight</h1>
+        <div class="nav">
+            <a href="/">Beranda</a>
+            <a href="profil.html">Profil</a>
+            <a href="#services">Layanan</a>
+            <a href="/kontak">Kontak</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </header>
+
+    <!-- Konten Halaman Kontak -->
+    <div class="container">
+        <div class="content">
+            <!-- Kiri -->
+            <div class="left-section">
+                <h2>Kontak Kami</h2>
+                <p>Silahkan tinggalkan pesan Anda pada kolom yang tersedia di sebelah kanan.</p>
+                <!-- Media Sosial -->
+                <div class="social-media">
+                    <a href="https://facebook.com" target="_blank" class="facebook">
+                        <i class="fab fa-facebook-square"></i>
+                        Facebook
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="instagram">
+                        <i class="fab fa-instagram"></i>
+                        Instagram
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="linkedin">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="twitter">
+                        <i class="fab fa-twitter"></i>
+                        Twitter
+                    </a>
+                    <a href="https://wa.me/123456789" target="_blank" class="whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp
+                    </a>
+                </div>
+                <!-- Informasi Kontak -->
+                <div class="contact-info">
+                    <p><strong>Email:</strong> info@liverinsight.com</p>
+                    <p><strong>Telepon:</strong> +62 812-3456-7890</p>
+                    <p><strong>Alamat:</strong> Jl. Sehat No. 12, Jakarta, Indonesia</p>
+                </div>
+            </div>
+            <!-- Kanan -->
+            <div class="right-section">
+                <form method="POST" action="/kontak">
+                    <label for="name">Nama Anda:</label>
+                    <input type="text" id="name" name="name" placeholder="Masukkan Nama Anda" required>
+                    
+                    <label for="email">E-mail Anda:</label>
+                    <input type="email" id="email" name="email" placeholder="Masukkan Email Anda" required>
+                    
+                    <label for="suggestion">Pesan Anda:</label>
+                    <textarea id="suggestion" name="suggestion" placeholder="Tuliskan pesan Anda di sini..." required></textarea>
+                    
+                    <button type="submit">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Maps Section -->
+        <div class="map">
+            <h2>Lokasi Kami</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.5810804821417!2d109.22884221057971!3d-7.400745992578425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e655ef25207e1e1%3A0xcedb82ef04ed7e7c!2sUniversitas%20Amikom%20Purwokerto!5e0!3m2!1sid!2sid!4v1734276907675!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            © 2024 Liver Insight - Semua Hak Dilindungi
+        </footer>
+    </div>
+</body>
+</html>

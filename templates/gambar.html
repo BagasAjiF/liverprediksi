@@ -64,19 +64,86 @@
             text-align: left;
         }
 
-        .back-button {
-            display: block;
-            margin: 30px auto;
-            padding: 12px 24px;
-            text-align: center;
+        .details-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: rgba(0, 125, 128, 0.8);
             color: white;
-            background-color: #007D80;
             border: none;
-            border-radius: 8px;
+            border-radius: 20px;
             cursor: pointer;
-            text-decoration: none;
-            font-size: 18px;
+            font-size: 14px;
+            transition: 0.3s;
         }
+
+        .details-button:hover {
+            background-color: rgba(0, 95, 95, 0.9);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content h2 {
+            color: #007D80;
+        }
+
+        .modal-content ul {
+            text-align: left;
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        .close-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #007D80;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            background: #005f5f;
+        }
+
+        .back-button {
+        display: block;
+        width: calc(100% - 60px); /* Sesuaikan ukuran tombol agar rata dengan container */
+        max-width: 1365px; /* Batas lebar maksimum sesuai ukuran container */
+        margin: 30px auto;
+        padding: 12px 10px;
+        text-align: center;
+        color: white;
+        background-color: #007D80;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 18px;
+        }
+
 
         .back-button:hover {
             background-color: #004C4E;
@@ -91,45 +158,377 @@
         <!-- Anatomi Hati -->
         <div class="gallery-item">
             <h2>Anatomi Hati</h2>
-            <img src="static\ht 1.png" alt="Anatomi Hati">
-            <p>Hati berwarna cokelat kemerahan dan bentuknya seperti kerucut atau irisan, dengan ujung kecil di atas limpa dan lambung serta ujung besar di atas usus halus. Seluruh organ ini terletak di bawah paru-paru di perut kanan atas.</p>
+            <img src="static/ht 1.png" alt="Anatomi Hati">
+            <p>Hati berwarna cokelat kemerahan dan bentuknya seperti kerucut atau irisan, dengan ujung kecil di atas limpa.</p>
             <p class="source"><em>Sumber: <a href="https://columbiasurgery.org/liver/liver-and-its-functions" target="_blank">columbiasurgery</a></em></p>
+            <button class="details-button" onclick="showModal('modal1')">Selengkapnya</button>
         </div>
 
-        <!-- Gambar Hati Tidak Sehat -->
+        <!-- Sirosis Liver -->
         <div class="gallery-item">
             <h2>Sirosis Liver</h2>
-            <img src="static\h2.png" alt="Liver Tidak Sehat">
-            <p>Sirosis adalah gangguan pada liver yang menyerang sel sehat, kemudian seiring waktu berubah menjadi jaringan parut. Sirosis bermula dari penyakit liver yang diidap sebelumnya, misalnya hepatitis serta dibedakan menjadi 4 stadium.</p>
+            <img src="static/h2.png" alt="Sirosis Liver">
+            <p>Sirosis adalah gangguan pada liver yang menyerang sel sehat, kemudian seiring waktu berubah menjadi jaringan parut.</p>
             <p class="source"><em>Sumber: <a href="https://www.mitrakeluarga.com/artikel/stadium-sirosis-hati" target="_blank">mitrakeluarga</a></em></p>
+            <button class="details-button" onclick="showModal('modal2')">Selengkapnya</button>
         </div>
 
-        <!-- Gambar Sirosis Hati
-        <div class="gallery-item">
-            <h2>Sirosis Hati</h2>
-            <img src="https://media.istockphoto.com/id/1389703644/id/vektor/histologi-hati-hati-normal-dan-sirosis-hati-penyakit-hati-untuk-pendidikan-kedokteran-dan.jpg?s=612x612&w=0&k=20&c=WaLHpPx1_BvdyxNGSldun-jxJC_tgkW_p0iacRQBgQ0=" alt="Sirosis Hati">
-            <p>Sirosis hati adalah kondisi kerusakan hati yang sudah parah, biasanya akibat hepatitis atau alkoholisme.</p>
-            <p class="source"><em>Sumber: <a href="https://www.istockphoto.com/id/vektor/histologi-hati-hati-normal-dan-sirosis-hati" target="_blank">istock</a></em></p>
-        </div> -->
-
-        <!-- Gambar Hati dengan Lemak -->
+        <!-- Fatty Liver -->
         <div class="gallery-item">
             <h2>Fatty Liver</h2>
-            <img src="static\faty.png" alt="Hati Berlemak">
-            <p>Fatty liver adalah sebuah istilah yang menggambarkan penumpukan lemak di hati. Sebenarnya memiliki sejumlah lemak di hati adalah kondisi yang normal, tapi kalau sudah berlebihan justru berbahaya untuk kesehatan.</p>
+            <img src="static/faty.png" alt="Fatty Liver">
+            <p>Fatty liver adalah sebuah istilah yang menggambarkan penumpukan lemak di hati.</p>
             <p class="source"><em>Sumber: <a href="https://www.halodoc.com/artikel/ini-bahaya-hati-yang-berlemak-alias-fatty-liver" target="_blank">halodoc</a></em></p>
+            <button class="details-button" onclick="showModal('modal3')">Selengkapnya</button>
         </div>
 
-        <!-- Gambar Liver Fibrosis -->
+        <!-- Fibrosis Liver -->
         <div class="gallery-item">
             <h2>Fibrosis Liver</h2>
-            <img src="static\fibroosisss.png" alt="Fibrosis Hati">
-            <p>Fibrosis hati (liver) adalah kondisi ketika hati dipenuhi oleh jaringan parut sehingga tidak lagi mampu berfungsi dengan baik. Jaringan parut merupakan jaringan bekas luka yang terbentuk sebagai bagian dari proses penyembuhan.</p>
+            <img src="static/fibroosisss.png" alt="Fibrosis Liver">
+            <p>Fibrosis hati (liver) adalah kondisi ketika hati dipenuhi oleh jaringan parut sehingga tidak lagi mampu berfungsi dengan baik.</p>
             <p class="source"><em>Sumber: <a href="https://hellosehat.com/pencernaan/hati/fibrosis-hati/" target="_blank">hellosehat</a></em></p>
+            <button class="details-button" onclick="showModal('modal4')">Selengkapnya</button>
         </div>
     </div>
 
+    <!-- Modal Popups -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h2>Anatomi Hati</h2>
+            <div class="modal-body" style="padding: 15px; text-align: justify; line-height: 1.8;">
+                <p>
+                    Hati adalah organ padat terbesar dalam tubuh manusia. Organ ini memiliki fungsi penting, seperti menyaring racun dari aliran darah, menjaga kadar gula darah tetap normal, mengatur pembekuan darah, serta melakukan ratusan fungsi vital lainnya. Hati terletak di bawah tulang rusuk, di bagian kanan atas perut.
+                </p>
+    
+                <h3 style="margin-top: 20px;">Fakta Penting tentang Hati</h3>
+                <ul style="margin-left: 20px; padding-left: 15px;">
+                    <li><b>Menyaring Darah:</b> Hati menyaring semua darah dalam tubuh dan memecah zat beracun, seperti alkohol dan obat-obatan.</li>
+                    <li><b>Produksi Empedu:</b> Hati menghasilkan empedu, cairan yang membantu mencerna lemak dan membuang limbah.</li>
+                    <li><b>Struktur Hati:</b> Hati terdiri dari empat lobus (bagian), masing-masing dibagi menjadi delapan segmen, dan memiliki ribuan lobulus (bagian kecil).</li>
+                </ul>
+    
+                <h3 style="margin-top: 20px;">Fungsi Utama Hati</h3>
+                <ul style="margin-left: 20px; padding-left: 15px;">
+                    <li><b>Produksi Albumin:</b> Protein yang menjaga cairan dalam pembuluh darah agar tidak bocor ke jaringan lain, serta membawa hormon, vitamin, dan enzim ke seluruh tubuh.</li>
+                    <li><b>Produksi Empedu:</b> Membantu mencerna dan menyerap lemak di usus kecil.</li>
+                    <li><b>Penyaring Darah:</b> Semua darah dari lambung dan usus melewati hati untuk menyaring racun dan zat berbahaya lainnya.</li>
+                    <li><b>Mengatur Asam Amino:</b> Menjaga keseimbangan asam amino yang diperlukan untuk pembentukan protein.</li>
+                    <li><b>Pembekuan Darah:</b> Membantu produksi zat pembeku darah menggunakan vitamin K, yang hanya bisa diserap dengan bantuan empedu.</li>
+                    <li><b>Melawan Infeksi:</b> Menyaring bakteri dari aliran darah.</li>
+                    <li><b>Menyimpan Vitamin dan Mineral:</b> Hati menyimpan vitamin A, D, E, K, B12, serta mineral seperti zat besi dan tembaga.</li>
+                    <li><b>Pengolahan Glukosa:</b> Hati mengubah kelebihan gula dalam darah menjadi glikogen untuk disimpan, dan mengubahnya kembali menjadi glukosa saat dibutuhkan tubuh.</li>
+                </ul>
+    
+                <h3 style="margin-top: 20px;">Struktur dan Anatomi Hati</h3>
+                <p>Hati berwarna merah kecokelatan dan berbentuk seperti kerucut atau baji, dengan berat sekitar 1,4 hingga 1,6 kg.</p>
+                <ul style="margin-left: 20px; padding-left: 15px;">
+                    <li><b>Lobus Hati:</b> Terdiri dari empat bagian (lobus kanan, kiri, kaudatus, dan kuadratus), yang dipisahkan oleh ligamen falciformis.</li>
+                    <li><b>Lobulus:</b> Unit kecil penyusun hati, masing-masing memiliki saluran yang mengalirkan empedu ke saluran empedu utama.</li>
+                    <li><b>Saluran Hepatik Umum:</b> Mengangkut empedu keluar dari hati.</li>
+                    <li><b>Arteri Hepatik:</b> Membawa darah beroksigen ke hati.</li>
+                    <li><b>Vena Porta Hepatik:</b> Membawa darah dari saluran pencernaan, kantung empedu, pankreas, dan limpa ke hati.</li>
+                    <li><b>Kapsul Glisson:</b> Lapisan jaringan yang melindungi hati.</li>
+                    <li><b>Peritoneum:</b> Membran yang melapisi permukaan luar hati.</li>
+                </ul>
+    
+                <h3 style="margin-top: 20px;">Menjaga Kesehatan Hati</h3>
+                <ul style="margin-left: 20px; padding-left: 15px;">
+                    <li><b>Hindari Narkoba:</b> Zat berbahaya ini dapat merusak hati dalam jangka panjang.</li>
+                    <li><b>Batasi Konsumsi Alkohol:</b> Alkohol yang berlebihan dapat menyebabkan kerusakan hati.</li>
+                    <li><b>Olahraga Teratur:</b> Membantu menjaga kesehatan seluruh organ tubuh, termasuk hati.</li>
+                    <li><b>Pola Makan Sehat:</b> Hindari makanan berlemak berlebihan untuk mencegah penyakit hati berlemak.</li>
+                    <li><b>Praktikkan Seks yang Aman:</b> Gunakan perlindungan untuk mencegah penyakit menular seksual seperti hepatitis C.</li>
+                    <li><b>Vaksinasi:</b> Lindungi diri dari hepatitis A dan B, serta penyakit lain seperti malaria dan demam kuning.</li>
+                </ul>
+    
+                <p>Hati adalah organ vital yang memainkan peran penting dalam menjaga tubuh tetap sehat. Merawatnya dengan gaya hidup sehat sangatlah penting.</p>
+            </div>
+            <button class="close-button" onclick="closeModal('modal1')">Tutup</button>
+        </div>
+    </div>    
+    
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h2>Sirosis Liver</h2>
+            <div class="modal-body" style="padding: 15px; text-align: justify; line-height: 1.8;">
+                <p>
+                    Sirosis hati adalah kerusakan pada hati yang mengubah sel-sel sehat menjadi jaringan parut. Penyebab utamanya termasuk infeksi hepatitis, konsumsi alkohol berlebihan, makanan berlemak, dan gangguan autoimun. Penyakit ini hanya bisa dicegah agar tidak semakin parah, bukan disembuhkan sepenuhnya.
+                </p>
+    
+                <h3 style="margin-top: 20px;">Kenali 4 Stadium Sirosis Hati Berdasarkan Tingkat Keparahannya</h3>
+                <ul style="margin-left: 20px; padding-left: 15px;">
+                    <li><b>Steatosis (Stadium Awal):</b>
+                        Pada tahap ini, hati mengalami peradangan awal yang dapat menyebabkan rasa tidak nyaman di perut. Penyebabnya adalah hati yang kesulitan melawan infeksi dan bakteri.
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                            <li><b>Gejala:</b> Peradangan dan ketidaknyamanan di perut.</li>
+                            <li><b>Penanganan:</b> Menurunkan berat badan hingga 10% sesuai rekomendasi American Association for Study of Liver Disease (AASLD).</li>
+                        </ul>
+                    </li>
+                    <li><b>Fibrosis:</b>
+                        Jika tidak ditangani, peradangan berlanjut menjadi jaringan parut yang menghambat aliran darah ke hati.
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                            <li><b>Gejala:</b> Hilang nafsu makan, mual, kulit dan mata menguning, penumpukan cairan di perut atau kaki, hingga kesulitan berpikir.</li>
+                            <li><b>Catatan:</b> Banyak orang tidak menyadari gejala ini. Segera konsultasikan ke dokter jika merasakannya.</li>
+                        </ul>
+                    </li>
+                    <li><b>Sirosis (Kerusakan Lanjutan):</b>
+                        Pada tahap ini, jaringan hati semakin rusak, darah sulit mengalir, dan hati tidak berfungsi optimal.
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                            <li><b>Gejala:</b> Pengentalan dan pengerasan hati.</li>
+                            <li><b>Komplikasi:</b> Hipertensi portal dan malnutrisi.</li>
+                        </ul>
+                    </li>
+                    <li><b>Gagal Hati (Stadium Akhir):</b>
+                        Pada tahap ini, fungsi hati berhenti total.
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                            <li><b>Jenis:</b>
+                                <ul style="margin-left: 20px; padding-left: 15px; list-style: circle;">
+                                    <li><b>Gagal Hati Akut:</b> Disebabkan oleh reaksi racun.</li>
+                                    <li><b>Gagal Hati Kronis:</b> Akibat kecanduan alkohol.</li>
+                                </ul>
+                            </li>
+                            <li><b>Penanganan:</b> Satu-satunya solusi adalah transplantasi hati.</li>
+                        </ul>
+                    </li>
+                </ul>
+    
+                <h3 style="margin-top: 20px;">Cara Mengobati dan Mencegah Sirosis Hati</h3>
+                <ul style="margin-left: 20px; padding-left: 15px;">
+                    <li><b>Mengatasi Penyebab Sirosis Hati:</b>
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                            <li>Vaksinasi hepatitis B dan C sesuai anjuran dokter.</li>
+                            <li>Hindari konsumsi alkohol dan makanan tinggi lemak seperti junk food.</li>
+                        </ul>
+                    </li>
+                    <li><b>Mengobati Komplikasi:</b>
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                            <li>Endoskopi untuk menghentikan perdarahan akibat pembuluh darah pecah.</li>
+                            <li>Mengeluarkan cairan berlebih di perut dengan obat-obatan atau prosedur medis.</li>
+                        </ul>
+                    </li>
+                </ul>
+    
+                <h3 style="margin-top: 20px;">Perhatian Khusus untuk Pasien Sirosis Hati</h3>
+                <p>
+                    Menurut dr. Septian Nindita Adi Nugraha, Sp.PD, pasien sirosis hati harus:
+                </p>
+                <ul style="margin-left: 20px; padding-left: 15px;">
+                    <li>Menghindari makanan mentah (termasuk seafood).</li>
+                    <li>Memperhatikan asupan kalori dan protein.</li>
+                    <li>Melakukan vaksinasi untuk mencegah infeksi tambahan.</li>
+                </ul>
+    
+                <p>
+                    <b>Kesimpulan:</b> Sirosis hati dapat dicegah agar tidak semakin parah dengan gaya hidup sehat, perawatan medis, dan penanganan tepat sesuai stadium penyakit. Jika Anda atau orang terdekat mengalami gejala, segera konsultasikan ke dokter untuk mendapatkan perawatan lebih lanjut.
+                </p>
+            </div>
+            <button class="close-button" onclick="closeModal('modal2')">Tutup</button>
+        </div>
+    </div>
+    
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <h2>Fatty Liver</h2>
+            <div class="modal-body" style="padding: 15px; text-align: justify; line-height: 1.8;">
+                <h3>Apa Itu Fatty Liver?</h3>
+                <p>
+                    Fatty liver adalah kondisi penumpukan lemak berlebih di hati. Meski sedikit lemak di hati adalah hal normal, akumulasi yang berlebihan dapat membahayakan kesehatan. Hati, organ terbesar kedua dalam tubuh, berfungsi memproses makanan dan minuman, serta menyaring zat berbahaya.
+                </p>
+                <p>
+                    Jika lemak di hati melebihi 5% dari total sel hati, kondisi ini mulai menjadi masalah. Hati berlemak dapat menyebabkan kerusakan jangka panjang, terutama jika kerusakan terjadi berulang kali, yang dapat berkembang menjadi jaringan parut permanen (sirosis).
+                </p>
+                <h4>Fakta Penting:</h4>
+                <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                    <li>Fatty liver sering terjadi tanpa gejala.</li>
+                    <li>Menurut American Liver Foundation, kondisi ini umum terjadi pada orang berusia 40-60 tahun, tetapi juga dapat dialami anak-anak, terutama yang mengonsumsi minuman bersoda secara berlebihan.</li>
+                </ul>
+                
+                <h3 style="margin-top: 20px;">Penyebab Fatty Liver</h3>
+                <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                    <li><b>Konsumsi Alkohol Berlebihan:</b> Penyebab paling umum.</li>
+                    <li><b>Faktor Lain:</b>
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: circle;">
+                            <li>Kegemukan.</li>
+                            <li>Kadar lemak darah tinggi.</li>
+                            <li>Konsumsi obat tertentu yang memengaruhi fungsi hati.</li>
+                            <li>Penurunan berat badan yang terlalu cepat.</li>
+                            <li>Faktor genetik.</li>
+                        </ul>
+                    </li>
+                    <li><b>Pola Makan Tidak Sehat:</b>
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: circle;">
+                            <li><b>Karbohidrat Berlebih:</b> Memicu penumpukan lemak di hati dan perut.</li>
+                            <li><b>Gula dan Fruktosa:</b> Memicu produksi lemak di hati melalui proses lipogenesis. Fruktosa merupakan jenis gula yang paling berbahaya untuk hati.</li>
+                        </ul>
+                    </li>
+                </ul>
+    
+                <h3 style="margin-top: 20px;">Gejala Fatty Liver</h3>
+                <p>
+                    Fatty liver sering kali tidak menunjukkan gejala jelas. Namun, beberapa tanda khas meliputi:
+                </p>
+                <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                    <li>Kelelahan berlebih.</li>
+                    <li>Rasa tidak nyaman di perut.</li>
+                    <li>Kesulitan berkonsentrasi.</li>
+                    <li>Sakit perut.</li>
+                    <li>Penurunan berat badan tanpa sebab.</li>
+                </ul>
+                <p>
+                    Jika tidak ditangani, kondisi ini dapat berkembang menjadi sirosis dengan gejala:
+                </p>
+                <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                    <li>Pembesaran perut akibat cairan.</li>
+                    <li>Penyakit kuning (kulit dan mata menguning).</li>
+                    <li>Pendarahan abnormal.</li>
+                </ul>
+    
+                <h3 style="margin-top: 20px;">Pencegahan Fatty Liver</h3>
+                <ul style="margin-left: 20px; padding-left: 15px; list-style: disc;">
+                    <li><b>Pola Makan Sehat:</b>
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: circle;">
+                            <li>Kurangi konsumsi karbohidrat olahan dan fruktosa.</li>
+                            <li>Tingkatkan asupan lemak sehat dari kelapa, daging sapi, kacang-kacangan, dan biji-bijian.</li>
+                        </ul>
+                    </li>
+                    <li><b>Olahraga Teratur:</b>
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: circle;">
+                            <li>Mulai dengan berjalan 30 menit per hari.</li>
+                            <li>Lakukan kombinasi kardio dan angkat beban untuk hasil lebih optimal.</li>
+                        </ul>
+                    </li>
+                    <li><b>Detoksifikasi Alami:</b>
+                        <ul style="margin-left: 20px; padding-left: 15px; list-style: circle;">
+                            <li>Konsumsi makanan kaya sulfur seperti brokoli, kembang kol, kale, sawi, bawang putih, dan selada air.</li>
+                        </ul>
+                    </li>
+                </ul>
+    
+                <h3 style="margin-top: 20px;">Kesimpulan</h3>
+                <p>
+                    Fatty liver dapat dicegah dengan pola hidup sehat, termasuk menjaga asupan nutrisi, mengurangi gula, dan rutin berolahraga. Jika Anda mengalami gejala seperti kelelahan ekstrem atau rasa tidak nyaman di perut, segera konsultasikan dengan dokter untuk penanganan lebih lanjut.
+                </p>
+            </div>
+            <button class="close-button" onclick="closeModal('modal3')">Tutup</button>
+        </div>
+    </div>
+    
+
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <h2>Fibrosis Liver</h2>
+            <div class="modal-body" style="padding: 15px; text-align: justify; line-height: 1.8;">
+                <h3>Fibrosis Hati: Penyebab, Gejala, dan Penanganan</h3>
+    
+                <h4>Definisi Fibrosis Hati</h4>
+                <p>
+                    Fibrosis hati adalah kondisi di mana hati dipenuhi jaringan parut, sehingga fungsi hati terganggu. Jaringan parut ini terbentuk akibat proses penyembuhan cedera atau peradangan hati yang berulang atau kronis, seperti hepatitis B, hemokromatosis, atau perlemakan hati.
+                </p>
+                <p>
+                    Jaringan parut tidak seperti jaringan hati sehat, karena tersusun dari komponen matriks ekstraseluler (ECM) yang tidak mampu memperbaiki diri. Jika tidak ditangani, fibrosis dapat menurunkan fungsi hati dan berpotensi berkembang menjadi sirosis.
+                </p>
+    
+                <h4>Stadium Fibrosis Hati</h4>
+                <p>Fibrosis hati memiliki beberapa stadium, salah satu sistem penilaiannya adalah sistem <b>METAVIR</b>:</p>
+                <ul>
+                    <li><b>Nilai Aktivitas (A):</b>
+                        <ul>
+                            <li>A0: Tidak ada aktivitas.</li>
+                            <li>A1: Aktivitas ringan.</li>
+                            <li>A2: Aktivitas sedang.</li>
+                            <li>A3: Aktivitas berat.</li>
+                        </ul>
+                    </li>
+                    <li><b>Stadium Fibrosis (F):</b>
+                        <ul>
+                            <li>F0: Tidak ada fibrosis.</li>
+                            <li>F1: Fibrosis portal tanpa septa (serabut berserat).</li>
+                            <li>F2: Fibrosis portal dengan beberapa septa.</li>
+                            <li>F3: Sejumlah septa tanpa sirosis.</li>
+                            <li>F4: Sirosis hati.</li>
+                        </ul>
+                    </li>
+                </ul>
+    
+                <h4>Gejala Fibrosis Hati</h4>
+                <p>Pada tahap awal, fibrosis hati sering tidak menunjukkan gejala. Namun, saat penyakit memburuk, gejala berikut dapat muncul:</p>
+                <ul>
+                    <li>Kelelahan.</li>
+                    <li>Penurunan nafsu makan dan berat badan tanpa sebab.</li>
+                    <li>Penumpukan cairan di perut atau kaki.</li>
+                    <li>Kulit dan mata tampak kekuningan (jaundice).</li>
+                    <li>Kesulitan berpikir jernih.</li>
+                </ul>
+    
+                <h4>Penyebab dan Faktor Risiko</h4>
+                <p><b>Penyebab:</b></p>
+                <ul>
+                    <li>Hepatitis autoimun.</li>
+                    <li>Penyumbatan saluran empedu.</li>
+                    <li>Hepatitis B dan C.</li>
+                    <li>Penyakit hati alkoholik.</li>
+                    <li>Perlemakan hati non-alkoholik.</li>
+                    <li>Kelebihan zat besi.</li>
+                </ul>
+                <p><b>Faktor Risiko:</b></p>
+                <ul>
+                    <li>Riwayat penyakit hati kronis dalam keluarga.</li>
+                    <li>Konsumsi alkohol berlebihan.</li>
+                    <li>Jenis kelamin laki-laki.</li>
+                    <li>Hubungan seksual tidak aman.</li>
+                </ul>
+    
+                <h4>Diagnosis Fibrosis Hati</h4>
+                <p>Beberapa metode untuk mendiagnosis fibrosis hati:</p>
+                <ul>
+                    <li><b>Biopsi Hati:</b> Mengambil sampel jaringan hati untuk pemeriksaan lebih lanjut.</li>
+                    <li><b>Transient Elastography:</b> Menggunakan gelombang suara untuk mengukur kekakuan hati akibat jaringan parut.</li>
+                    <li><b>Tes Nonbedah:</b> Tes darah atau perhitungan khusus seperti rasio aminotransferase dengan keping darah (APRI).</li>
+                </ul>
+    
+                <h4>Pengobatan Fibrosis Hati</h4>
+                <p>Pengobatan bergantung pada penyebab utama fibrosis. Program perawatan dapat mencakup:</p>
+                <ul>
+                    <li>Menghentikan konsumsi alkohol.</li>
+                    <li>Obat antivirus untuk hepatitis.</li>
+                    <li>Obat untuk menghilangkan logam berat.</li>
+                    <li>Mengontrol pola makan, berat badan, dan kadar gula darah.</li>
+                    <li>Membuka saluran empedu yang tersumbat.</li>
+                    <li>Obat-obatan antifibrotik seperti ACE inhibitor atau PPAR-alpha agonist.</li>
+                </ul>
+    
+                <h4>Pengobatan di Rumah</h4>
+                <p>Perubahan gaya hidup dapat membantu mencegah pembentukan fibrosis baru, antara lain:</p>
+                <ul>
+                    <li>Minum cukup air putih.</li>
+                    <li>Menghindari alkohol dan membatasi konsumsi kopi.</li>
+                    <li>Mengonsumsi vitamin E dan makanan dengan antioksidan.</li>
+                    <li>Meminum obat untuk mengeluarkan cairan berlebih dan mengurangi tekanan pada pembuluh darah.</li>
+                </ul>
+    
+                <h4>Kesimpulan</h4>
+                <p>
+                    Fibrosis hati terjadi akibat jaringan parut di hati, yang jika dibiarkan dapat berkembang menjadi sirosis. Oleh karena itu, penderita penyakit hati kronis disarankan untuk melakukan pemeriksaan fungsi hati secara rutin agar kondisi ini dapat ditangani sejak dini.
+                </p>
+            </div>
+            <button class="close-button" onclick="closeModal('modal4')">Tutup</button>
+        </div>
+    </div>
+    
+
     <!-- Back Button -->
     <a href="/" class="back-button">Kembali ke Halaman Utama</a>
+
+    <script>
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+    </script>
 </body>
 </html>

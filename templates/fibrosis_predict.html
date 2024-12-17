@@ -215,14 +215,18 @@
         <i class="fas fa-info-circle info-icon" onclick="openPopup()"></i>
         <h1>Prediksi Fibrosis Liver</h1>
         <form id="prediction-form" action="/fibrosis_predict" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <input type="file" id="file" name="file" accept="image/*" onchange="previewImage(event)" required>
                 <select name="model" required>
                     <option value="LSTM" {% if selected_model == 'LSTM' %}selected{% endif %}>LSTM</option>
                     <option value="CNN" {% if selected_model == 'CNN' %}selected{% endif %}>CNN</option>
                     <option value="GAN" {% if selected_model == 'GAN' %}selected{% endif %}>GAN</option>
                 </select>
-            </div>
+            </div> -->
+            <div class="form-group">
+                <input type="file" id="file" name="file" accept="image/*" onchange="previewImage(event)" required>
+                <input type="hidden" name="model" value="CNN">
+            </div>            
 
             <div class="image-preview-container">
                 <img id="image-preview" style="display: none;" alt="Image Preview">
@@ -237,7 +241,7 @@
         <div class="result">
             {% if prediction %}
                 <h3>Hasil Prediksi</h3>
-                <p><strong>Model:</strong> {{ selected_model }}</p>
+                <!-- <p><strong>Model:</strong> {{ selected_model }}</p> -->
                 <p><strong>Prediksi:</strong> {{ prediction }}</p>
             {% endif %}
         </div>

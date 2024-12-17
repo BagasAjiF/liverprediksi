@@ -1,10 +1,11 @@
-# app.py
 import os
 import numpy as np
 import pandas as pd
 import pickle
 import base64
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 from werkzeug.utils import secure_filename
@@ -12,6 +13,30 @@ from PIL import Image
 
 # Initialize Flask App
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'supersecretkey'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost/databasebaru'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+
+# User Model
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    # nama = db.Column(db.String(100), nullable=False)
+
+# Suggestion Model
+class Suggestion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    suggestion = db.Column(db.Text, nullable=False)
+
+with app.app_context():
+    db.create_all()
 
 # Load Liver Disease Prediction Model
 with open("model/best_rf_model.pkl", 'rb') as file:
@@ -19,8 +44,8 @@ with open("model/best_rf_model.pkl", 'rb') as file:
 
 # Load Liver Fibrosis Prediction Models
 MODEL_PATH_LSTM = "model/lstm_model (1).h5"
-MODEL_PATH_CNN = "model/cnn_model.h5"  # Add your CNN model path
-MODEL_PATH_GAN = "model/classification_fnn_model.h5"  # Add your GAN model path
+MODEL_PATH_CNN = "model/cnn_model.h5"
+MODEL_PATH_GAN = "model/classification_fnn_model.h5"
 
 fibrosis_model_lstm = load_model(MODEL_PATH_LSTM)
 fibrosis_model_cnn = load_model(MODEL_PATH_CNN)
@@ -29,10 +54,57 @@ fibrosis_model_gan = load_model(MODEL_PATH_GAN)
 # Liver Fibrosis Class Labels
 CLASSES = ['F0', 'F3', 'F4', 'F2', 'F1']
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
+        email = request.form['email']
+
+        # Cek apakah email sudah terdaftar
+        if User.query.filter_by(email=email).first():
+            flash('Email sudah terdaftar!', 'danger')
+            return redirect(url_for('register'))
+
+        new_user = User(username=username, password=password, email=email)  # Hanya username dan email
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Registrasi berhasil! Silakan login.', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']  # Menggunakan email sebagai login
+        password = request.form['password']
+        user = User.query.filter_by(email=email).first()  # Cari berdasarkan email
+        if user and bcrypt.check_password_hash(user.password, password):
+            session['email'] = user.email  # Simpan email ke session
+            session['username'] = user.username  # Simpan username ke session
+            flash('Login berhasil!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Email atau password salah!', 'danger')
+    return render_template('login.html')
+
+
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)  # Hapus username dari session saat logout
+    flash('Anda berhasil logout!', 'info')
+    return redirect(url_for('login'))
+
+
 # Home Page Route
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if 'username' in session:  # Periksa session untuk 'username'
+        return render_template('index.html', username=session['username'])
+    return redirect(url_for('login'))
+
 
 # Liver Disease Prediction Route
 @app.route('/predict', methods=['GET', 'POST'])
@@ -77,7 +149,7 @@ def predict():
 
         # Make prediction
         prediction_proba = liver_model.predict_proba(input_data)
-        result = "Pasien Terkena Penyakit Liver" if prediction_proba[0][1] >= 0.7 else "Pasien Tidak Terkena Penyakit Liver"
+        result = "Pasien Terkena Gejala Penyakit Liver" if prediction_proba[0][1] >= 0.7 else "Pasien Tidak Terkena Penyakit Liver"
 
         return jsonify(prediction=result)
 
@@ -150,7 +222,79 @@ def gambar():
 
 @app.route('/profil.html')
 def profile():
-    return render_template('profil.html')
+    if 'email' not in session:
+        return redirect(url_for('login'))  # Redirect ke login jika tidak ada sesi
+
+    # Ambil data pengguna berdasarkan email yang login
+    user = User.query.filter_by(email=session['email']).first()
+    if user:
+        return render_template('profil.html', user=user)
+    else:
+        flash('Pengguna tidak ditemukan!', 'danger')
+        return redirect(url_for('login'))
+
+
+
+@app.route('/profile/update', methods=['POST'])
+def update_profile():
+    if 'username' not in session:
+        flash('Anda harus login terlebih dahulu!', 'danger')
+        return redirect(url_for('login'))
+
+    user = User.query.filter_by(username=session['username']).first()
+    
+    if user:
+        new_username = request.form['username']
+        new_password = request.form['new_password']
+        confirm_password = request.form['confirm_password']
+
+        # Cek apakah username sudah tersedia
+        if new_username != user.username:
+            existing_user = User.query.filter_by(username=new_username).first()
+            if existing_user:
+                flash('Username sudah digunakan!', 'danger')
+                return redirect(url_for('profile'))
+
+        # Update username
+        user.username = new_username
+
+        # Jika password baru diisi dan cocok, lakukan update
+        if new_password and new_password == confirm_password:
+            hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+            user.password = hashed_password
+        elif new_password or confirm_password:
+            flash('Password baru tidak cocok!', 'danger')
+            return redirect(url_for('profile'))
+
+        # Simpan perubahan ke database
+        db.session.commit()
+
+        flash('Profil berhasil diperbarui!', 'success')
+        return redirect(url_for('profile'))
+    else:
+        flash('Pengguna tidak ditemukan!', 'danger')
+        return redirect(url_for('login'))
+
+
+
+
+# Route for Kontak
+@app.route('/kontak', methods=['GET', 'POST'])
+def kontak():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        suggestion = request.form['suggestion']
+
+        # Save to database
+        new_suggestion = Suggestion(name=name, email=email, suggestion=suggestion)
+        db.session.add(new_suggestion)
+        db.session.commit()
+
+        flash('Terima kasih atas saran Anda!', 'success')
+        return redirect(url_for('kontak'))
+
+    return render_template('kontak.html')
 
 if __name__ == "__main__":
     # Create uploads folder if it doesn't exist
