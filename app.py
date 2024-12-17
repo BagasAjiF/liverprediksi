@@ -101,10 +101,11 @@ def logout():
 # Home Page Route
 @app.route('/')
 def index():
-    if 'username' in session:  # Periksa session untuk 'username'
+    # Cek apakah pengguna sudah login dengan memeriksa session
+    if 'username' in session:  # Jika sudah login
         return render_template('index.html', username=session['username'])
-    return redirect(url_for('login'))
-
+    # Jika belum login, redirect ke halaman login
+    return redirect(url_for('login'))  # Mengarahkan ke halaman login
 
 # Liver Disease Prediction Route
 @app.route('/predict', methods=['GET', 'POST'])
