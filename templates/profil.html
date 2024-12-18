@@ -14,6 +14,7 @@
             padding: 0;
             background-color: #e3f9f9;
             overflow-x: hidden;
+            padding-top: 80px;
         }
 
         header {
@@ -26,6 +27,11 @@
             border-bottom: 5px solid #1a6e73;
             width: 100%;
             box-sizing: border-box;
+            box-sizing: border-box;
+            position: fixed; /* Membuat header tetap di atas */
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
 
         header h1 {
@@ -141,7 +147,7 @@
     </header>
 
     <div class="profile-container">
-        <img src="static/oo.png" alt="Profil Foto">
+        <img src="static/Desain tanpa judul (18).png" alt="Profil Foto">
         <h2>{{ user.username }}</h2>
         <p>Email: {{ user.email }}</p>
     

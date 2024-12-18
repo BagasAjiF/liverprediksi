@@ -8,11 +8,12 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background-color: #e3f9f9;
             color: #2C3E50;
-            /* background: url('static/61808.jpg') no-repeat center center fixed;
-            background-size: cover; */
+            margin: 0;
+            padding: 0;
+            background-color: #e3f9f9;
+            overflow-x: hidden;
+            padding-top: 80px;
         }
 
         header {
@@ -23,7 +24,13 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 5px solid #1a6e73;
+            width: 100%;
             box-sizing: border-box;
+            box-sizing: border-box;
+            position: fixed; /* Membuat header tetap di atas */
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
 
         header h1 {

@@ -87,6 +87,22 @@
             font-weight: normal; /* Pastikan berat font yang sama */
             margin-bottom: 10px; /* Tambahkan jarak margin bawah */
         }
+        .option-button, .reset-button {
+            flex: 0 0 auto;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1a6e73;
+            color: white;
+            cursor: pointer;
+            min-width: 150px;
+            text-align: center;
+            text-decoration: none; /* Hilangkan garis bawah */
+            font-family: Arial, sans-serif; /* Pastikan font yang sama */
+            font-size: 14px; /* Pastikan ukuran font yang sama */
+            font-weight: normal; /* Pastikan berat font yang sama */
+            margin-bottom: 10px; /* Tambahkan jarak margin bawah */
+        }
 
         .option-button:hover, .home-button:hover {
             background-color: #145e5e;
@@ -99,7 +115,9 @@
             border: 1px solid #ccc;
             resize: none;
         }
-
+        .option-button:hover, .reset-button:hover {
+            background-color: #145e5e;
+        }
     </style>
 </head>
 <body>
@@ -126,6 +144,7 @@
         <!-- Tombol untuk konsultasi via WhatsApp dengan ukuran yang sama dan jarak margin -->
         <a href="https://wa.me/6289634199624?text=Halo%20saya%20ingin%20konsultasi%20mengenai%20penyakit%20liver" class="option-button">Konsultasi via WhatsApp</a>
         <button class="home-button" onclick="goHome()">Kembali ke Halaman Utama</button>
+        <button class="reset-button" onclick="resetChat()">Reset Chat</button>
     </div>
 
     <script>
@@ -173,6 +192,9 @@
 
             // Tampilkan respons chatbot
             chatBox.innerHTML += `<p class="chat-message"><strong>Chatbot:</strong> ${response}</p>`;
+
+                // Scroll otomatis ke bawah
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         function sendCustomMessage() {
@@ -189,7 +211,9 @@
         function goHome() {
             window.location.href = "/"; // Kembali ke halaman utama
         }
-
+        function resetChat() {
+            document.getElementById('chat-box').innerHTML = '<p class="chat-message">Chatbot: Halo! Saya di sini untuk membantu Anda dengan pertanyaan tentang penyakit liver. Silakan pilih salah satu parameter di bawah ini:</p>';
+        }
     </script>
 </body>
 </html>
